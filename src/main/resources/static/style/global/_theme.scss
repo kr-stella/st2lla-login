@@ -1,0 +1,229 @@
+@use "parameter" as param;
+
+:root {
+	--capt-secondary-color: #656565;
+}
+
+:root[theme=dark] {
+	--capt-body-color: #{param.$light-hex};
+	--capt-body-color-rgb: #{param.$light-rgb};
+	--capt-body-bg: #{param.$dark-hex};
+	--capt-body-bg-rgb: #{param.$dark-rgb};
+	
+	--capt-border-color: #{param.$init-border-color-dark};
+	--capt-border-color-translucent: #{param.$init-border-color-translucent-dark};
+	--capt-secondary-color: #aeb3b8;
+
+	--capt-link-hover: #{param.$link-hover-dark-hex};
+	--capt-link-hover-rgb: #{param.$link-hover-dark-rgb};
+
+	--capt-primary-text: #{param.$primary-text-dark-hex};
+	--capt-primary-text-rgb: #{param.$primary-text-dark-rgb};
+	--capt-secondary-text: #{param.$secondary-text-dark-hex};
+	--capt-secondary-text-rgb: #{param.$secondary-text-dark-rgb};
+	--capt-success-text: #{param.$success-text-dark-hex};
+	--capt-success-text-rgb: #{param.$success-text-dark-rgb};
+	--capt-info-text: #{param.$info-text-dark-hex};
+	--capt-info-text-rgb: #{param.$info-text-dark-rgb};
+	--capt-warning-text: #{param.$warning-text-dark-hex};
+	--capt-warning-text-rgb: #{param.$warning-text-dark-rgb};
+	--capt-danger-text: #{param.$danger-text-dark-hex};
+	--capt-danger-text-rgb: #{param.$danger-text-dark-rgb};
+	--capt-valid-text: #{param.$valid-text-dark-hex};
+	--capt-valid-text-rgb: #{param.$valid-text-dark-rgb};
+	--capt-invalid-text: #{param.$invalid-text-dark-hex};
+	--capt-invalid-text-rgb: #{param.$invalid-text-dark-rgb};
+	--capt-secondary-text-sub: #{param.$secondary-text-sub-dark-hex};
+	--capt-secondary-text-sub-rgb: #{param.$secondary-text-sub-dark-rgb};
+	--capt-tertiary-text: #{param.$tertiary-text-dark-hex};
+	--capt-tertiary-text-rgb: #{param.$tertiary-text-dark-rgb};
+	--capt-link-text: #{param.$link-text-dark-hex};
+	--capt-link-text-rgb: #{param.$link-text-dark-rgb};
+	--capt-code-text: #{param.$code-text-dark-hex};
+	--capt-code-text-rgb: #{param.$code-text-dark-rgb};
+	--capt-highlight-text: #{param.$highlight-text-dark-hex};
+	--capt-highlight-text-rgb: #{param.$highlight-text-dark-rgb};
+
+	--capt-primary-bg: #{param.$primary-bg-dark-hex};
+	--capt-primary-bg-rgb: #{param.$primary-bg-dark-rgb};
+	--capt-secondary-bg: #{param.$secondary-bg-dark-hex};
+	--capt-secondary-bg-rgb: #{param.$secondary-bg-dark-rgb};
+	--capt-success-bg: #{param.$success-bg-dark-hex};
+	--capt-success-bg-rgb: #{param.$success-bg-dark-rgb};
+	--capt-info-bg: #{param.$info-bg-dark-hex};
+	--capt-info-bg-rgb: #{param.$info-bg-dark-rgb};
+	--capt-warning-bg: #{param.$warning-bg-dark-hex};
+	--capt-warning-bg-rgb: #{param.$warning-bg-dark-rgb};
+	--capt-danger-bg: #{param.$danger-bg-dark-hex};
+	--capt-danger-bg-rgb: #{param.$danger-bg-dark-rgb};
+	--capt-secondary-bg-sub: #{param.$secondary-bg-sub-dark-hex};
+	--capt-secondary-bg-sub-rgb: #{param.$secondary-bg-sub-dark-rgb};
+	--capt-tertiary-bg: #{param.$tertiary-bg-dark-hex};
+	--capt-tertiary-bg-rgb: #{param.$tertiary-bg-dark-rgb};
+	--capt-highlight-bg: #{param.$highlight-bg-dark-hex};
+	--capt-highlight-bg-rgb: #{param.$highlight-bg-dark-rgb};
+
+	--capt-primary-border: #{param.$primary-border-dark-hex};
+	--capt-secondary-border: #{param.$secondary-border-dark-hex};
+	--capt-success-border: #{param.$success-border-dark-hex};
+	--capt-info-border: #{param.$info-border-dark-hex};
+	--capt-warning-border: #{param.$warning-border-dark-hex};
+	--capt-danger-border: #{param.$danger-border-dark-hex};
+	--capt-valid-border: #{param.$valid-border-dark-hex};
+	--capt-invalid-border: #{param.$invalid-border-dark-hex};
+}
+
+:root, [theme=dark] {
+	font-size: 0.8125rem;
+
+	--capt-body-color: #{param.$dark-hex};
+	--capt-body-color-rgb: #{param.$dark-rgb};
+	--capt-body-font-size: #{param.$init-font-size};
+	--capt-body-font-weight: #{param.$init-font-weight};
+	--capt-body-line-height: #{param.$init-line-height};
+	--capt-body-bg: #{param.$light-hex};
+	--capt-body-bg-rgb: #{param.$light-rgb};
+
+	--capt-border-width: #{param.$init-border-width};
+	--capt-border-style: #{param.$init-border-style};
+	--capt-border-color: #{param.$init-border-color-light};
+	--capt-border-color-translucent: #{param.$init-border-color-translucent-light};
+
+	--capt-border-radius: #{param.$init-border-radius};
+	--capt-border-radius-sm: #{param.$init-border-radius-sm};
+	--capt-border-radius-lg: #{param.$init-border-radius-lg};
+	--capt-border-radius-xl: #{param.$init-border-radius-xl};
+	--capt-border-radius-xxl: #{param.$init-border-radius-xxl};
+	--capt-border-radius-2xl: #{param.$init-border-radius-2xl};
+
+	--capt-box-shadow: #{param.$init-box-shadow};
+	--capt-box-shadow-sm: #{param.$init-box-shadow-sm};
+	--capt-box-shadow-lg: #{param.$init-box-shadow-lg};
+	--capt-box-shadow-inset: #{param.$init-box-shadow-inset};
+
+	--capt-link-decoration: #{param.$link-decoration};
+	--capt-link-hover: #{param.$link-hover-light-hex};
+	--capt-link-hover-rgb: #{param.$link-hover-light-rgb};
+
+	--capt-gradient: #{param.$init-gradient};
+	--capt-rainbow-gradient: #{param.$init-rainbow-gradient};
+
+	/** 확인 필요 */
+	--capt-heading-color: inherit
+	--capt-focus-ring-width: 0.25rem;
+	--capt-focus-ring-opacity: .25;
+	--capt-focus-ring-color: #6c5dd340;
+
+	/** color */
+	--capt-ci: #{param.$ci-hex};
+	--capt-ci-rgb: #{param.$ci-rgb};
+	--capt-light: #{param.$light-hex};
+	--capt-light-rgb: #{param.$light-rgb};
+	--capt-white: #{param.$white-hex};
+	--capt-white-rgb: #{param.$white-rgb};
+	--capt-dark: #{param.$dark-hex};
+	--capt-dark-rgb: #{param.$dark-rgb};
+	--capt-black: #{param.$black-hex};
+	--capt-black-rgb: #{param.$black-rgb};
+	--capt-blue: #{param.$blue-hex};
+	--capt-blue-rgb: #{param.$blue-rgb};
+	--capt-sky-blue: #{param.$sky-blue-hex};
+	--capt-sky-blue-rgb: #{param.$sky-blue-rgb};
+	--capt-indigo: #{param.$indigo-hex};
+	--capt-indigo-rgb: #{param.$indigo-rgb};
+	--capt-purple: #{param.$purple-hex};
+	--capt-purple-rgb: #{param.$purple-rgb};
+	--capt-pink: #{param.$pink-hex};
+	--capt-pink-rgb: #{param.$pink-rgb};
+	--capt-red: #{param.$red-hex};
+	--capt-red-rgb: #{param.$red-rgb};
+	--capt-orange: #{param.$orange-hex};
+	--capt-orange-rgb: #{param.$orange-rgb};
+	--capt-yellow: #{param.$yellow-hex};
+	--capt-yellow-rgb: #{param.$yellow-rgb};
+	--capt-green: #{param.$green-hex};
+	--capt-green-rgb: #{param.$green-rgb};
+	--capt-teal: #{param.$teal-hex};
+	--capt-teal-rgb: #{param.$teal-rgb};
+	--capt-cyan: #{param.$cyan-hex};
+	--capt-cyan-rgb: #{param.$cyan-rgb};
+	--capt-brand: #{param.$brand-hex};
+	--capt-brand-rgb: #{param.$brand-rgb};
+	--capt-brand-two: #{param.$brand-two-hex};
+	--capt-brand-two-rgb: #{param.$brand-two-rgb};
+	--capt-primary: #{param.$primary-hex};
+	--capt-primary-rgb: #{param.$primary-rgb};
+	--capt-secondary: #{param.$secondary-hex};
+	--capt-secondary-rgb: #{param.$secondary-rgb};
+	--capt-success: #{param.$success-hex};
+	--capt-success-rgb: #{param.$success-rgb};
+	--capt-info: #{param.$info-hex};
+	--capt-info-rgb: #{param.$info-rgb};
+	--capt-warning: #{param.$warning-hex};
+	--capt-warning-rgb: #{param.$warning-rgb};
+	--capt-danger: #{param.$danger-hex};
+	--capt-danger-rgb: #{param.$danger-rgb};
+
+	--capt-primary-text: #{param.$primary-text-light-hex};
+	--capt-primary-text-rgb: #{param.$primary-text-light-rgb};
+	--capt-secondary-text: #{param.$secondary-text-light-hex};
+	--capt-secondary-text-rgb: #{param.$secondary-text-light-rgb};
+	--capt-success-text: #{param.$success-text-light-hex};
+	--capt-success-text-rgb: #{param.$success-text-light-rgb};
+	--capt-info-text: #{param.$info-text-light-hex};
+	--capt-info-text-rgb: #{param.$info-text-light-rgb};
+	--capt-warning-text: #{param.$warning-text-light-hex};
+	--capt-warning-text-rgb: #{param.$warning-text-light-rgb};
+	--capt-danger-text: #{param.$danger-text-light-hex};
+	--capt-danger-text-rgb: #{param.$danger-text-light-rgb};
+	--capt-valid-text: #{param.$valid-text-light-hex};
+	--capt-valid-text-rgb: #{param.$valid-text-light-rgb};
+	--capt-invalid-text: #{param.$invalid-text-light-hex};
+	--capt-invalid-text-rgb: #{param.$invalid-text-light-rgb};
+	--capt-secondary-text-sub: #{param.$secondary-text-sub-light-hex};
+	--capt-secondary-text-sub-rgb: #{param.$secondary-text-sub-light-rgb};
+	--capt-tertiary-text: #{param.$tertiary-text-light-hex};
+	--capt-tertiary-text-rgb: #{param.$tertiary-text-light-rgb};
+	--capt-link-text: #{param.$link-text-light-hex};
+	--capt-link-text-rgb: #{param.$link-text-light-rgb};
+	--capt-code-text: #{param.$code-text-light-hex};
+	--capt-code-text-rgb: #{param.$code-text-light-rgb};
+	--capt-highlight-text: #{param.$highlight-text-light-hex};
+	--capt-highlight-text-rgb: #{param.$highlight-text-light-rgb};
+
+	--capt-primary-bg: #{param.$primary-bg-light-hex};
+	--capt-primary-bg-rgb: #{param.$primary-bg-light-rgb};
+	--capt-secondary-bg: #{param.$secondary-bg-light-hex};
+	--capt-secondary-bg-rgb: #{param.$secondary-bg-light-rgb};
+	--capt-success-bg: #{param.$success-bg-light-hex};
+	--capt-success-bg-rgb: #{param.$success-bg-light-rgb};
+	--capt-info-bg: #{param.$info-bg-light-hex};
+	--capt-info-bg-rgb: #{param.$info-bg-light-rgb};
+	--capt-warning-bg: #{param.$warning-bg-light-hex};
+	--capt-warning-bg-rgb: #{param.$warning-bg-light-rgb};
+	--capt-danger-bg: #{param.$danger-bg-light-hex};
+	--capt-danger-bg-rgb: #{param.$danger-bg-light-rgb};
+	--capt-secondary-bg-sub: #{param.$secondary-bg-sub-light-hex};
+	--capt-secondary-bg-sub-rgb: #{param.$secondary-bg-sub-light-rgb};
+	--capt-tertiary-bg: #{param.$tertiary-bg-light-hex};
+	--capt-tertiary-bg-rgb: #{param.$tertiary-bg-light-rgb};
+	--capt-highlight-bg: #{param.$highlight-bg-light-hex};
+	--capt-highlight-bg-rgb: #{param.$highlight-bg-light-rgb};
+
+	--capt-primary-border: #{param.$primary-border-light-hex};
+	--capt-primary-border-rgb: #{param.$primary-border-light-rgb};
+	--capt-secondary-border: #{param.$secondary-border-light-hex};
+	--capt-secondary-border-rgb: #{param.$secondary-border-light-rgb};
+	--capt-success-border: #{param.$success-border-light-hex};
+	--capt-success-border-rgb: #{param.$success-border-light-rgb};
+	--capt-info-border: #{param.$info-border-light-hex};
+	--capt-info-border-rgb: #{param.$info-border-light-rgb};
+	--capt-warning-border: #{param.$warning-border-light-hex};
+	--capt-warning-border-rgb: #{param.$warning-border-light-rgb};
+	--capt-danger-border: #{param.$danger-border-light-hex};
+	--capt-danger-border-rgb: #{param.$danger-border-light-rgb};
+	--capt-valid-border: #{param.$valid-border-light-hex};
+	--capt-valid-border-rgb: #{param.$valid-border-light-rgb};
+	--capt-invalid-border: #{param.$invalid-border-light-hex};
+	--capt-invalid-border-rgb: #{param.$invalid-border-light-rgb};
+}

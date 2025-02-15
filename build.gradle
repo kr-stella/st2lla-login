@@ -1,0 +1,83 @@
+plugins {
+	id "java"
+	id "org.springframework.boot" version "3.4.2"
+	id "io.spring.dependency-management" version "1.1.7"
+}
+
+sourceCompatibility = "17"
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	
+	implementation "org.springframework.boot:spring-boot-starter-web"
+	implementation "org.springframework.boot:spring-boot-starter-tomcat"
+	/** Spring Security */
+	implementation "org.springframework.boot:spring-boot-starter-security"
+	/** HTML */
+	implementation "org.springframework.boot:spring-boot-starter-thymeleaf"
+	/** MyBatis */
+	implementation "org.mybatis.spring.boot:mybatis-spring-boot-starter:3.0.4"
+	
+	/** Redis */
+	implementation "org.springframework.boot:spring-boot-starter-data-redis"
+	/** @SchedulerLock + Redis */
+	/** @Scheduled 설정할 때 중복실행 되는 이슈해결 ( Linux CentOS 7 ) */
+	implementation "net.javacrumbs.shedlock:shedlock-spring:6.2.0"
+	implementation "net.javacrumbs.shedlock:shedlock-provider-redis-spring:6.2.0"
+	
+	/** Custom AOP - @RoleCheck 같은 어노테이션 만들기 위함 */
+	implementation "org.springframework.boot:spring-boot-starter-aop:3.4.1"
+	/** AWS */
+	implementation "software.amazon.awssdk:secretsmanager:2.30.4"
+	
+	/** JWT */
+	implementation "io.jsonwebtoken:jjwt-api:0.12.5"
+	implementation "io.jsonwebtoken:jjwt-impl:0.12.5"
+	implementation "io.jsonwebtoken:jjwt-jackson:0.12.5"
+	implementation "com.nimbusds:nimbus-jose-jwt:9.39.1"
+	
+	/** DB Connection Pool */
+	implementation "org.apache.commons:commons-pool2:2.12.0"
+	/** 객체 지향 프로그래밍 지원 - 로깅, 트랜잭션 관리 */
+	implementation "org.aspectj:aspectjrt:1.9.22.1"
+	/** JDBC 커넥션 풀 관리 */
+	implementation "org.apache.tomcat:tomcat-jdbc"
+	/** Java에서 Util Class제공( NumberUtils, DateUtils 등 ) */
+	implementation "org.apache.commons:commons-lang3"
+	/** JSP 파일을 컴파일하고 실행하는데 사용 */
+	// api "org.apache.tomcat.embed:tomcat-embed-jasper"
+	implementation "jakarta.inject:jakarta.inject-api:2.0.1"
+	implementation "jakarta.xml.bind:jakarta.xml.bind-api:4.0.2"
+	implementation "jakarta.annotation:jakarta.annotation-api:3.0.0"
+	
+	/** 쿼리문 로그 */
+	implementation "org.bgee.log4jdbc-log4j2:log4jdbc-log4j2-jdbc4.1:1.16"
+	
+	/** log4j */
+	implementation "org.apache.logging.log4j:log4j-core"
+	implementation "org.apache.logging.log4j:log4j-api"
+	implementation "org.apache.logging.log4j:log4j-to-slf4j"
+	
+	implementation "com.fasterxml.jackson.core:jackson-core"
+	implementation "com.fasterxml.jackson.core:jackson-databind"
+	implementation "com.fasterxml.jackson.core:jackson-annotations"
+	implementation "com.fasterxml.jackson.datatype:jackson-datatype-jdk8"
+	implementation "com.fasterxml.jackson.datatype:jackson-datatype-jsr310"
+	implementation "com.fasterxml.jackson.module:jackson-module-parameter-names"
+	
+	/** MySQL Connector */
+	implementation "com.mysql:mysql-connector-j:9.2.0"
+	
+	/** Lombok */
+	compileOnly "org.projectlombok:lombok"
+	annotationProcessor "org.projectlombok:lombok"
+	
+	testImplementation "org.springframework.boot:spring-boot-starter-test"
+	
+}
+
+tasks.named("test") {
+	useJUnitPlatform()
+}

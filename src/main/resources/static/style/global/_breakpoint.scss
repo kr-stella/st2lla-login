@@ -1,0 +1,34 @@
+@use "sass:map";
+@use "parameter" as param;
+
+$breakpoints: (
+	fhd: param.$fhd, hd: param.$hd, pc: param.$pc,
+	note: param.$note, wide: param.$wide, tab: param.$tab, tablet: param.$tablet,
+	surface: param.$surface, mobile: param.$mobile, minimum: param.$minimum
+);
+
+@mixin resp-max($width) {
+	@if map.has-key($breakpoints, $width) {
+		@media only screen and (max-width: map.get($breakpoints, $width)) {
+			@content;
+		}
+	} @else {
+		@warn "No valid breakpoint defined for `#{$width}` in `$breakpoints`.";
+	}
+}
+
+@mixin resp-min($width) {
+	@if map.has-key($breakpoints, $width) {
+		@media only screen and (min-width: map.get($breakpoints, $width)) {
+			@content;
+		}
+	} @else {
+		@warn "No valid breakpoint defined for `#{$width}` in `$breakpoints`.";
+	}
+}
+
+// @mixin test {
+// 	@media only screen and (min-width: #{$tablet + 1}) {
+// 		@content;
+// 	}
+// }

@@ -1,0 +1,29 @@
+@use "../global/parameter" as global-param;
+@use "parameter" as param;
+
+:root {
+	--capt-login-bg: #{global-param.$light-hex};
+}
+
+:root[theme=dark] {
+	--capt-login-bg: #{param.$login-bg-hex};
+}
+
+
+
+
+[theme=dark] .input-box > .input-control:not([class*=valid]) {
+	border-color: #{global-param.$gray-800-hex};
+}
+[theme=dark] .shadow-3d {
+	&::before { filter: opacity(0.8) brightness(1.2) contrast(0.8); }
+	&:after { filter: opacity(0.5) brightness(1) contrast(0.8); }
+}
+[theme=dark] .input-box > .input-control {
+	background-color: #212529;
+	color: #e7eef8;
+
+	&:focus:not([class*=valid]) {
+		border-color: var(--capt-primary-text);
+	}
+}
