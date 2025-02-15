@@ -5,8 +5,8 @@ export type Environment = `development`|`deployment`|`production`;
 export type CookieDomain = {[key in Environment]:string;};
 export const COOKIE_DOMAIN:CookieDomain = {
 	development: `localhost`,
-	deployment: `.dev.captivision.co.kr`,
-	production: `.cms.captivision.co.kr`
+	deployment: `.dev.st2lla.co.kr`,
+	production: `.st2lla.co.kr`
 };
 /** isDark 쿠키를 설정하는 함수 */
 const setCookie = (domain:string, name:string, value:string, days:number):void => {

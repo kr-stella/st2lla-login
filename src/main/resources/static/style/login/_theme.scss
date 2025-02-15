@@ -2,11 +2,11 @@
 @use "parameter" as param;
 
 :root {
-	--capt-login-bg: #{global-param.$light-hex};
+	--st2lla-login-bg: #{global-param.$light-hex};
 }
 
 :root[theme=dark] {
-	--capt-login-bg: #{param.$login-bg-hex};
+	--st2lla-login-bg: #{param.$login-bg-hex};
 }
 
 
@@ -24,6 +24,6 @@
 	color: #e7eef8;
 
 	&:focus:not([class*=valid]) {
-		border-color: var(--capt-primary-text);
+		border-color: var(--st2lla-primary-text);
 	}
 }

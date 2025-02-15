@@ -56,7 +56,7 @@ console.log(`
  \\______/ |__/  |__/|__/         |__/   |______/    \\_/    |______/ \\______/ |______/ \\______/ |__/  \\__/      |______/   |__/
 
 `);
-console.log('>> %chttps://www.captivision.co.kr', "font-family:story; font-weight: bold;");
+console.log('>> %chttps://www.st2lla.co.kr', "font-family:story; font-weight: bold;");
 console.log(`
   /$$$$$$  /$$   /$$ /$$      /$$ /$$$$$$ /$$   /$$
  /$$__  $$| $$  | $$| $$$    /$$$|_  $$_/| $$$ | $$

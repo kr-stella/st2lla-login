@@ -4,9 +4,9 @@
 	position: relative;
 	display: flex;
 	flex-direction: column;
-	color: var(--capt-body-color);
-	border-radius: var(--capt-border-radius);
-	background-color: var(--capt-login-bg);
+	color: var(--st2lla-body-color);
+	border-radius: var(--st2lla-border-radius);
+	background-color: var(--st2lla-login-bg);
 	background-clip: border-box;
 	box-sizing: border-box;
 	transition: .25s ease;
@@ -31,7 +31,7 @@
 		margin-bottom: 2rem;
 		width: 100%;
 		text-align: center;
-		color: var(--capt-secondary-color);
+		color: var(--st2lla-secondary-color);
 	}
 }
 
@@ -50,14 +50,14 @@
 		width: 100%;
 		padding: .5rem 1rem;
 		width: 100%;
-		min-height: calc(3.5rem + calc(var(--capt-border-width) * 2));
-		height: calc(3.5rem + calc(var(--capt-border-width) * 2));
+		min-height: calc(3.5rem + calc(var(--st2lla-border-width) * 2));
+		height: calc(3.5rem + calc(var(--st2lla-border-width) * 2));
 		line-height: 1.25;
-		color: var(--capt-body-color);
-		font-size: var(--capt-body-font-size);
+		color: var(--st2lla-body-color);
+		font-size: var(--st2lla-body-font-size);
 		font-weight: normal;
-		border-width: var(--capt-border-width);
-		border-style: var(--capt-border-style);
+		border-width: var(--st2lla-border-width);
+		border-style: var(--st2lla-border-style);
 		border-color: #{global-param.$gray-100-hex};
 		border-radius: .5rem;
 		background-color: #{global-param.$gray-100-hex};
@@ -66,39 +66,39 @@
 		transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 
 		&.none-placeholder::placeholder { color: transparent; }
-		&.shadow-inset { box-shadow: var(--capt-box-shadow-inset); }
+		&.shadow-inset { box-shadow: var(--st2lla-box-shadow-inset); }
 		&.is-valid {
 			padding-right: calc(1.5em + 1rem);
-			border-color: var(--capt-valid-border);
+			border-color: var(--st2lla-valid-border);
 			background-image: url("../image/input-valid.svg");
 			background-repeat: no-repeat;
 			background-position: right calc(0.375em + 0.25rem) center;
 			background-size: calc(0.75em + 0.5rem) calc(0.75em + 0.5rem);
 
 			&:focus {
-				border-color: var(--capt-valid-border);
-				box-shadow: var(--capt-box-shadow-inset), 0 0 0 0.25rem rgba(var(--capt-success-rgb), .25);
+				border-color: var(--st2lla-valid-border);
+				box-shadow: var(--st2lla-box-shadow-inset), 0 0 0 0.25rem rgba(var(--st2lla-success-rgb), .25);
 			}
 		}
 		&.is-invalid {
 			padding-right: calc(1.5em + 1rem);
-			border-color: var(--capt-invalid-border);
+			border-color: var(--st2lla-invalid-border);
 			background-image: url("../image/input-invalid.svg");
 			background-repeat: no-repeat;
 			background-position: right calc(0.375em + 0.25rem) center;
 			background-size: calc(0.75em + 0.5rem) calc(0.75em + 0.5rem);
 
 			&:focus {
-				border-color: var(--capt-invalid-border);
-				box-shadow: var(--capt-box-shadow-inset), 0 0 0 0.25rem rgba(var(--capt-danger-rgb), .25);
+				border-color: var(--st2lla-invalid-border);
+				box-shadow: var(--st2lla-box-shadow-inset), 0 0 0 0.25rem rgba(var(--st2lla-danger-rgb), .25);
 			}
 		}
 		&:focus {
-			color: var(--capt-body-color);
+			color: var(--st2lla-body-color);
 			background-color: #{global-param.$gray-100-hex};
-			border-color: var(--capt-primary-border);
+			border-color: var(--st2lla-primary-border);
 			outline: 0;
-			box-shadow: var(--capt-box-shadow-inset), 0 0 0 0.25rem rgba(var(--capt-primary-rgb), .24)
+			box-shadow: var(--st2lla-box-shadow-inset), 0 0 0 0.25rem rgba(var(--st2lla-primary-rgb), .24)
 		}
 		&:focus, &:not(:placeholder-shown) {
 			padding-top: 1.625rem;
@@ -107,7 +107,7 @@
 			& ~ label {
 				// font-weight: bold;
 				font-weight: normal;
-				color: rgba(var(--capt-body-color-rgb), .64);
+				color: rgba(var(--st2lla-body-color-rgb), .64);
 				transform: scale(0.85) translateY(-0.56rem) translateX(0.16rem);
 			}
 		}
