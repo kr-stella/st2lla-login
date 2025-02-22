@@ -1,0 +1,8 @@
+:root[theme=dark] {
+	.button-close {
+		--st2lla-button-close-color: var(--st2lla-white);
+		--st2lla-button-close-bg: url(../image/close-button-white.svg);
+
+		background: transparent var(--st2lla-button-close-bg) center / .92em auto no-repeat;
+	}
+}

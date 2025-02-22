@@ -1,0 +1,22 @@
+.icon {
+	--icon-hex: #c7c8c9;
+	--icon-rgb: 199, 200, 201;
+
+	position: fixed;
+	display: inline-flex;
+	bottom: 20px;
+	right: 20px;
+	width: 40px;
+	height: 40px;
+	align-items: center;
+	justify-content: center;
+	z-index: 5;
+	cursor: pointer;
+	border-radius: 100%;
+	background-color: var(--icon-hex);
+	backdrop-filter: blur(4px);
+	transition: .25s ease;
+
+	svg { width: 100%; height: 26px; }
+	&.on, &:hover { background-color: var(--st2lla-ci); }
+}

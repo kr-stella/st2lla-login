@@ -12,7 +12,6 @@ import lombok.Setter;
 @Setter
 public class UserVo implements UserDetails {
 	
-	// default
 	private static final long serialVersionUID = 1L;
 	
 	private int ino;

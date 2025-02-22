@@ -10,12 +10,11 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.http.MediaType;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.web.filter.OncePerRequestFilter;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.nimbusds.jose.JOSEException;
 
-import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -29,8 +28,8 @@ import jj.stella.util.jwt.RedirectUtil;
 import jj.stella.util.jwt.TokenUtil;
 import jj.stella.util.redis.RedisUtil;
 
-public class JwtIssue extends OncePerRequestFilter {
-	
+public class JwtIssue implements AuthenticationSuccessHandler {
+
 	private String JWT_NAME;
 	private String JWT_ISSUER;
 	private String JWT_AUDIENCE;
@@ -73,8 +72,8 @@ public class JwtIssue extends OncePerRequestFilter {
 	}
 	
 	@Override
-	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain)
-		throws IOException, ServletException {
+	public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
+			Authentication authentication) throws IOException, ServletException {
 		
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		/** 로그인이 성공했을 때 로직 실행 */
@@ -103,11 +102,11 @@ public class JwtIssue extends OncePerRequestFilter {
 			redirect(request, response);
 			
 			/** 중요. / 이후 FilterChain이 동작하지 않도록 여기서 반환 */
-			return;
+//			return;
 			
 		}
 		
-		chain.doFilter(request, response);
+//		chain.doFilter(request, response);
 		
 	}
 	
@@ -183,6 +182,7 @@ public class JwtIssue extends OncePerRequestFilter {
 		 * - 필요하다면 권한 확인로직 추가 후 root나 admin으로 redirect
 		 * */
 		String redirectURL = RedirectUtil.validateReferer(referer)? referer:HOME_SERVER;
+		
 		response.setContentType(MediaType.APPLICATION_JSON_VALUE);
 		response.setCharacterEncoding("UTF-8");
 		response.setStatus(HttpServletResponse.SC_OK);

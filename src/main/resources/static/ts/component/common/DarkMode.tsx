@@ -1,5 +1,5 @@
 import classNames from "classnames";
-import React, { useEffect, useCallback, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 
 export type Environment = `development`|`deployment`|`production`;
 export type CookieDomain = {[key in Environment]:string;};
@@ -8,6 +8,7 @@ export const COOKIE_DOMAIN:CookieDomain = {
 	deployment: `.dev.st2lla.co.kr`,
 	production: `.st2lla.co.kr`
 };
+
 /** isDark 쿠키를 설정하는 함수 */
 const setCookie = (domain:string, name:string, value:string, days:number):void => {
 	const secure = window.location.protocol === `https:`? `; Secure`:``;

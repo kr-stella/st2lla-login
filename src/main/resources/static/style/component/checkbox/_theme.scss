@@ -1,0 +1,15 @@
+/** 다크 모드 */
+html[theme="dark"] {
+	.checkbox.stroke input {
+		background-color: var(--st2lla-gray-900);
+		border-color: var(--st2lla-gray-800);
+
+		&:checked { border-color: var(--st2lla-primary); }
+	}
+
+	.checkbox.bounce label span {
+		background-color: var(--st2lla-gray-900);
+		border-color: var(--st2lla-gray-800);
+		&:hover { border-color: var(--st2lla-primary); }
+	}
+}

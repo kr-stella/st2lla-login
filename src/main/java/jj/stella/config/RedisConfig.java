@@ -18,7 +18,7 @@ public class RedisConfig {
 	
 	@Autowired
 	private Environment env;
-
+	
 	@Bean(name = "redis")
 	RedisConnectionFactory redisConnectionFactory() {
 		
@@ -30,7 +30,7 @@ public class RedisConfig {
 		return new LettuceConnectionFactory(config);
 		
 	}
-
+	
 	@Bean
 	RedisTemplate<String, Object> redisTemplate() {
 		

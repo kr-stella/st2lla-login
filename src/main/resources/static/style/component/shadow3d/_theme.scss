@@ -1,0 +1,4 @@
+[theme=dark] .shadow-3d {
+	&::before { filter: opacity(.72) brightness(1.2) contrast(0.8); }
+	&:after { filter: opacity(.56) brightness(1) contrast(0.8); }
+}

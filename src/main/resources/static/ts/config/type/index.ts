@@ -1,1 +1,0 @@
-export type ClickEvent = React.MouseEvent<HTMLElement>|React.TouchEvent<HTMLElement>;

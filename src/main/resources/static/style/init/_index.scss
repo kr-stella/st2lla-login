@@ -1,0 +1,49 @@
+@forward "animation";
+@forward "breakpoint";
+@forward "font";
+@forward "parameter";
+@forward "theme";
+
+* {
+	margin: 0;
+	padding: 0;
+	outline: none;
+	word-break: break-all;
+	font-variant-numeric: tabular-nums;
+
+	&::before, &::after { outline: none; word-break: break-all; }
+}
+
+body, html {
+	margin: 0;
+	padding: 0;
+	min-width: 280px;
+	font-size: 1rem;
+	font-family: story;
+	cursor: default;
+	line-height: 1.5;
+	letter-spacing: 0;
+	overflow-x: hidden;
+	color: var(--st2lla-body-color);
+	background-color: var(--st2lla-dark);
+	transition: .08s linear;
+	-webkit-text-size-adjust: 100%;
+	-webkit-font-smoothing: antialiased;
+}
+
+.wrap { position: fixed; width: 100vw; height: 100vh; }
+.box {
+	position: absolute;
+	top: 50%;
+	width: 100%;
+	min-width: 280px;
+	transform: translateY(-50%);
+
+	.container {
+		position: relative;
+		display: block;
+		max-width: 360px;
+		margin: 0 auto;
+		padding: 0 8px;
+	}
+}

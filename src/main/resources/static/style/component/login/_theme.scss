@@ -1,0 +1,8 @@
+:root {
+	--st2lla-login-bg: var(--st2lla-light);
+	--st2lla-login-bg-rgb: var(--st2lla-light-rgb);
+}
+:root[theme=dark] {
+	--st2lla-login-bg: #242731;
+	--st2lla-login-bg-rgb: 36, 39, 49;
+}

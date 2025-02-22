@@ -21,13 +21,11 @@ import software.amazon.awssdk.services.secretsmanager.model.GetSecretValueReques
 @SpringBootApplication
 @EnableAspectJAutoProxy
 public class Application extends SpringBootServletInitializer {
-
+	
 	private static final Region AWS_REGION = Region.AP_NORTHEAST_2;
 	private static final String CREDENTIALS_FILE = "credentials-st2lla";
 	private static final String ENVIRONMENT_PROPS_FOR_SECRET = System.getenv("ST2LLA_PROPS");
 	public static void main(String[] args) throws Exception {
-		
-		System.out.println("System.getProperty user.home ========> " + System.getProperty("user.home"));
 		
 		/** 프로필 파일 경로 설정 */
 		String credentialsPath = Paths.get(System.getProperty("user.home"), ".aws", CREDENTIALS_FILE).toString();

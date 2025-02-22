@@ -22,7 +22,8 @@ import jj.stella.util.jwt.TokenUtil;
 import jj.stella.util.redis.RedisUtil;
 
 public class AuthLogout implements LogoutSuccessHandler {
-
+	
+	private String LOGIN_SERVER;
 	private String JWT_HEADER;
 	private String JWT_KEY;
 	private String JWT_NAME;
@@ -32,9 +33,11 @@ public class AuthLogout implements LogoutSuccessHandler {
 	private AuthDao authDao;
 	RedisTemplate<String, Object> redisTemplate;
 	public AuthLogout(
+			String LOGIN_SERVER,
 		String JWT_HEADER, String JWT_KEY, String JWT_NAME, String JWT_DOMAIN, String JWT_PATH,
 		String JTI_SERVER, AuthDao authDao, RedisTemplate<String, Object> redisTemplate
 	) {
+		this.LOGIN_SERVER = LOGIN_SERVER;
 		this.JWT_HEADER = JWT_HEADER;
 		this.JWT_KEY = JWT_KEY;
 		this.JWT_NAME = JWT_NAME;
@@ -43,11 +46,9 @@ public class AuthLogout implements LogoutSuccessHandler {
 		this.JTI_SERVER = JTI_SERVER;
 		this.authDao = authDao;
 		this.redisTemplate = redisTemplate;
-	};
+	}
 	
-	/**
-	 * 모든 로그아웃 로직은 여기서 실행
-	 */
+	/** 모든 서버의 로그아웃은 여기서 실행 */
 	@Override
 	public void onLogoutSuccess(HttpServletRequest request, HttpServletResponse response, Authentication auth)
 		throws IOException, ServletException {
@@ -60,9 +61,9 @@ public class AuthLogout implements LogoutSuccessHandler {
 		
 		/** 인증 정보 제거 */
 		SecurityContextHolder.clearContext();
-		response.sendRedirect("/");
+		response.sendRedirect(LOGIN_SERVER);
 		
-	};
+	}
 	
 	/**
 	 * 1. 쿠키가 존재할 경우
@@ -99,7 +100,7 @@ public class AuthLogout implements LogoutSuccessHandler {
 			
 		}
 		
-	};
+	}
 	
 	/** Redis 제거 + Remember Me 제거 */
 	private void clearRedisAndRefreshToken(HttpServletResponse response, String token, Cookie[] cookies) {
@@ -128,13 +129,13 @@ public class AuthLogout implements LogoutSuccessHandler {
 			
 		}
 		
-	};
+	}
 	
 	/** 세션 초기화 */
 	private void clearSession(HttpServletRequest request) {
 		HttpSession session = request.getSession(false);
 		if(session != null)
 			session.invalidate();
-	};
+	}
 	
 }

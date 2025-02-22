@@ -33,7 +33,7 @@ public class AuthFailure implements AuthenticationFailureHandler {
 		
 		String username = request.getParameter("username");
 		WebAuthenticationDetails details = (WebAuthenticationDetails) request.getSession(false)
-				.getAttribute("St2lla-Authenticaion-Details");
+			.getAttribute("St2lla-Authenticaion-Details");
 		
 		String id = authUtil.encryptName(username);
 		String ip = ((AuthDetails) details).getIp();
@@ -55,6 +55,6 @@ public class AuthFailure implements AuthenticationFailureHandler {
 		response.getWriter().write(result);
 		response.getWriter().flush();
 		
-	};
+	}
 	
 }

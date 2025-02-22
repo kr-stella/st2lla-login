@@ -1,0 +1,115 @@
+button {
+	border: none;
+	outline: none;
+	appearance: none;
+	user-select: auto;
+}
+button, [type=button], [type=reset], [type=submit] {
+	&:not(:disabled) { cursor: pointer; }
+}
+
+.button-control {
+	display: inline-block;
+	padding: var(--st2lla-button-padding-y) var(--st2lla-button-padding-x);
+	line-height: var(--st2lla-button-line-height);
+	text-align: center;
+	text-decoration: none;
+	// font-family: var(--st2lla-button-font-family);
+	font-size: var(--st2lla-button-font-size);
+	font-weight: var(--st2lla-button-font-weight);
+	color: var(--st2lla-button-color);
+	cursor: pointer;
+	user-select: none;
+	background-color: var(--st2lla-button-bg);
+	border: var(--st2lla-button-border-width) var(--st2lla-button-border-style) var(--st2lla-button-border-color);
+	border-radius: var(--st2lla-button-border-radius);
+	box-shadow: var(--st2lla-button-box-shadow);
+	transition: color .15s ease-in-out, background-color .15s ease-in-out,
+		border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+
+	&.button-control-warning {
+		&:hover {
+			background-color: var(--st2lla-button-hover-bg);
+			border-color: var(--st2lla-button-hover-border-color);
+			color: var(--st2lla-button-hover-color);
+		}
+		&.active, &.show, &:active, &:checked + &, &:not(.button-control-check) + &:active {
+			color: var(--st2lla-button-active-color);
+			background-color: var(--st2lla-button-active-bg);
+			border-color: var(--st2lla-button-active-border-color);
+			box-shadow: var(--st2lla-button-active-shadow);
+		}
+	}
+}
+.button-close {
+	position: absolute;
+	top: 0;
+	right: 0;
+	padding: 1rem 1rem;
+	width: 1em;
+	height: 1em;
+	z-index: 2;
+	color: var(--st2lla-button-close-color);
+	opacity: 0.5;
+	border: 0;
+	border-radius: 1rem;
+	background: transparent var(--st2lla-button-close-bg) center / 0.92em auto no-repeat;
+	box-sizing: content-box;
+	transition: .2s ease;
+
+	&:hover {
+		opacity: var(--st2lla-button-close-hover-opacity);
+		text-decoration: none;
+	}
+}
+
+/** Color Section */
+.button-control {
+	--st2lla-button-bg: transparent;
+	--st2lla-button-padding-x: 1rem;
+	--st2lla-button-padding-y: 1rem;
+
+	--st2lla-button-font-size: 1rem;
+	--st2lla-button-font-weight: 600;
+	--st2lla-button-line-height: 1.5;
+	--st2lla-button-color: var(--st2lla-dark);
+	--st2lla-button-border-width: var(--st2lla-border-width);
+	--st2lla-button-border-style: var(--st2lla-border-style);
+	--st2lla-button-border-color: transparent;
+	--st2lla-button-border-radius: .5rem;
+
+	--st2lla-button-box-shadow: unset;
+	--st2lla-button-disabled-opacity: 0.64;
+	--st2lla-button-hover-border-color: transparent;
+	--st2lla-button-focus-box-shadow: 0 0 0 0.25rem rgba(var(--st2lla-button-focus-shadow-rgb), .5);
+}
+.button-control-warning {
+	--st2lla-button-bg: var(--st2lla-warning);
+	--st2lla-button-color: var(--st2lla-dark);
+	--st2lla-button-border-color: var(--st2lla-warning);
+
+	--st2lla-button-focus-shadow-rgb: 217, 176, 70;
+
+	--st2lla-button-hover-bg: #ffd66c;
+	--st2lla-button-hover-color: var(--st2lla-black);
+	--st2lla-button-hover-border-color: #ffd463;
+
+	--st2lla-button-active-bg: #ffd975;
+	--st2lla-button-active-color: var(--st2lla-black);
+	--st2lla-button-active-border-color: #ffd463;
+	--st2lla-button-active-shadow: inset 0 3px 5px rgba(var(--st2lla-black-rgb), .125);
+
+	--st2lla-button-disabled-bg: var(--st2lla-warning);
+	--st2lla-button-disabled-color: var(--st2lla-black);
+	--st2lla-button-disabled-border-color: var(--st2lla-warning);
+}
+.button-close {
+	--st2lla-button-close-color: var(--st2lla-black);
+	--st2lla-button-close-bg: url(../image/close-button.svg);
+	--st2lla-button-close-opacity: 0.48;
+	--st2lla-button-close-hover-opacity: 0.72;
+	--st2lla-button-close-focus-shadow: 0 0 0 0.25rem #6c5dd340;
+	--st2lla-button-close-focus-opacity: 1;
+	--st2lla-button-close-disabled-opacity: 0.25;
+	--st2lla-button-close-white-filter: invert(1) grayscale(100%) brightness(200%);
+}

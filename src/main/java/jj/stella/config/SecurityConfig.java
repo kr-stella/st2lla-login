@@ -7,6 +7,7 @@ import java.util.Base64;
 import javax.crypto.spec.SecretKeySpec;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -58,6 +59,9 @@ public class SecurityConfig {
 		this.authProperties = authProperties;
 		this.serverProperties = serverProperties;
 	}
+	
+	@Value("${server.production.mode}")
+	private boolean PRODUCTION_MODE;
 	
 	private static final String[] WHITE_LIST = {
 		"/resources/**", "/favicon.ico", "/", "/logout"
@@ -116,6 +120,7 @@ public class SecurityConfig {
 		String AUTH_SERVER = serverProperties.getAuth();
 		String JTI_SERVER = serverProperties.getJti();
 		String HOME_SERVER = serverProperties.getHome();
+		String LOGIN_SERVER = serverProperties.getLogin();
 		String ORIGIN_IP_API = serverProperties.getApi().getOriginIp();
 		
 		return http
@@ -126,7 +131,6 @@ public class SecurityConfig {
 				.csrfTokenRepository(new CsrfRepository(CSRF_NAME, CSRF_PARAMETER, CSRF_HEADER))
 				.csrfTokenRequestHandler(new CsrfHandler(CSRF_PARAMETER))
 			)
-			/** headers 옵션 참고 - https://www.notion.so/captivision/Spring-Security-headers-19103bc7c42b805ab61bc2ce5689b2ce?pvs=25 */
 			.headers(header -> header
 				.frameOptions(frame -> frame.sameOrigin())
 				.cacheControl(cache -> cache.disable())
@@ -135,6 +139,11 @@ public class SecurityConfig {
 				.crossOriginResourcePolicy(policy -> policy.policy(CrossOriginResourcePolicy.SAME_ORIGIN))
 				.crossOriginOpenerPolicy(coop -> coop.policy(CrossOriginOpenerPolicy.SAME_ORIGIN))
 				.contentTypeOptions(type -> type.disable())
+				.contentSecurityPolicy(csp -> csp
+					/** 이 옵션이 있다면 정책을 위반해도 차단하지 않고 오류만 보고함 */
+					// .reportOnly()
+					.policyDirectives(createCSPPolicy())
+				)
 				.permissionsPolicyHeader(permissions -> permissions.policy("geolocation=(), microphone=(), camera=(self)"))
 				.httpStrictTransportSecurity(hsts -> hsts
 					.includeSubDomains(true)
@@ -154,18 +163,21 @@ public class SecurityConfig {
 				 * ( https://api.ipify.org 이것도 있음 )
 				 * */
 				.authenticationDetailsSource(new AuthDetailsSource(ORIGIN_IP_API))
-				/**
-				 * 성공 후 처리는 JwtIssue에서 진행함
-				 * - .addFilterAfter(new JwtIssue(...), UsernamePasswordAuthenticationFilter.class)
-				 *  > UsernamePasswordAuthenticationFilter.class 이후 = 로그인 성공 이후
-				 *  > .successHandler(new AuthSuccess(LOGIN_SERVER)) 사용 안함 
-				 * */
+				/** 로그인 성공 후 JWT Token 발급 */
+				.successHandler(new JwtIssue(
+					JWT_NAME, JWT_ISSUER, JWT_AUDIENCE,
+					JWT_REFRESH_ISSUER, JWT_REFRESH_AUDIENCE, JWT_DOMAIN, JWT_PATH, JWT_EXPIRED,
+					encryptSignKey(JWT_ENCRYPT_SIGN), encryptTokenKey(JWT_ENCRYPT_TOKEN),
+					encryptSignKey(JWT_ENCRYPT_REFRESH_SIGN), encryptTokenKey(JWT_ENCRYPT_REFRESH_TOKEN),
+					HOME_SERVER, authDao, authUtil, redisTemplate)
+				)
 				.failureHandler(new AuthFailure(authDao, authUtil))
 			)
 			/** 로그아웃 */
 			.logout(logout -> logout
 				.logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
 				.logoutSuccessHandler(new AuthLogout(
+					LOGIN_SERVER,
 					JWT_HEADER, JWT_KEY, JWT_NAME, JWT_DOMAIN, JWT_PATH,
 					JTI_SERVER, authDao, redisTemplate
 				))
@@ -190,21 +202,14 @@ public class SecurityConfig {
 			), UsernamePasswordAuthenticationFilter.class)
 			/** 로그인, 로그아웃 이후 응답헤더에 XSRF-TOKEN을 보내기 위함( 갱신 ) */
 			.addFilterAfter(new Csrf(), CsrfFilter.class)
-			/** 로그인 성공 후 JWT Token 발급 */
-			.addFilterAfter(new JwtIssue(
-				JWT_NAME, JWT_ISSUER, JWT_AUDIENCE,
-				JWT_REFRESH_ISSUER, JWT_REFRESH_AUDIENCE, JWT_DOMAIN, JWT_PATH, JWT_EXPIRED,
-				encryptSignKey(JWT_ENCRYPT_SIGN), encryptTokenKey(JWT_ENCRYPT_TOKEN),
-				encryptSignKey(JWT_ENCRYPT_REFRESH_SIGN), encryptTokenKey(JWT_ENCRYPT_REFRESH_TOKEN),
-				HOME_SERVER, authDao, authUtil, redisTemplate
-			), UsernamePasswordAuthenticationFilter.class)
 			.sessionManagement(session -> session 
 				.sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED)
 				.sessionFixation().changeSessionId()
 				.maximumSessions(7)
 				.maxSessionsPreventsLogin(true)
 				.expiredUrl("/")
-			).build();
+			)
+			.build();
 	}
 	
 	/** 비밀번호 암호화( 단방향 복호화 불가능 ) */
@@ -282,6 +287,23 @@ public class SecurityConfig {
 		return Arrays.stream(str)
 			.map(AntPathRequestMatcher::new)
 			.toArray(RequestMatcher[]::new);
+	}
+	
+	private String createCSPPolicy() {
+		
+		String directives = "script-src 'self'";
+		if(!PRODUCTION_MODE)
+			directives += " 'unsafe-eval'";
+		
+		return "style-src 'self' 'unsafe-inline';" +
+			"media-src 'self' blob:;" +
+			"default-src 'self';" +
+			"base-uri 'self';" +
+			"object-src 'none';" +
+			"connect-src 'self';" +
+			"img-src 'self';"+
+			directives + ";";
+		
 	}
 	
 }

@@ -1,0 +1,13 @@
+[theme=dark] .input-box {
+	 & > .input-control {
+		color: #e7eef8;
+		background-color: var(--st2lla-gray-900);
+
+		&:not([class*=valid]) {
+			border-color: var(--st2lla-gray-800);
+		}
+		&:focus:not([class*=valid]) {
+			border-color: var(--st2lla-primary-text);
+		}
+	 }
+}

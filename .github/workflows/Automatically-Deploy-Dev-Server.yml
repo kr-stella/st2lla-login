@@ -1,0 +1,280 @@
+name: AWS EC2 개발서버 자동화 배포 CI/CD - 로그인
+on:
+  push:
+    branches:
+      - "release-dev-*"
+
+jobs:
+  Automatically-Deploy-Dev-Server:
+    runs-on: ubuntu-latest
+    steps:
+      # 저장소 이름 추출
+      - name: Extract Repository Name
+        run: |
+          IFS='/' read -ra Extract <<< "${{ github.repository }}"
+          REPOSITORY="${Extract[1]}"
+          echo "추출된 저장소 이름: $REPOSITORY"
+          echo "repo=$REPOSITORY" >> $GITHUB_ENV
+
+          # set-output 로직은 곧 deprecated 된다는 경고가 있음.
+          # echo "::set-output name=repo::$REPOSITORY"
+
+      # 추출된 저장소 이름으로 Captivision-IT의 저장소인지 개인 저장소인지 판별
+      # 만약 개인저장소라면 이하 모든 절차를 스킵.
+      - name: Check Main Repository
+        run: |
+          if [[ "${{ github.repository }}" != "Captivision-IT/${{ env.repo }}" ]]; then
+            echo "이 워크플로우는 Captivision-IT에서 실행되는게 아닙니다. 이하 모든 절차를 스킵합니다."
+            echo "skip=true" >> $GITHUB_ENV
+          else echo "skip=false" >> $GITHUB_ENV
+          fi
+
+      # JSON 데이터로 저장된 포트정보 파싱
+      - name: Parse Secrets Port Data
+        if: env.skip != 'true'
+        env:
+          DATA: ${{ secrets.PORTS }}
+        run: echo "port=$(echo $DATA | jq -r --arg key "${{ env.repo }}" '.[$key]')" >> $GITHUB_ENV
+
+      - name: Print Port Variable
+        if: env.skip != 'true'
+        run: echo "The Port is ${{ env.port }}"
+
+      # JSON 데이터로 저장된 IP정보 파싱
+      - name: Parse Secrets IP Data
+        if: env.skip != 'true'
+        env:
+          DATA: ${{ secrets.IPS }}
+        run: echo "ip=$(echo $DATA | jq -r --arg key "${{ env.repo }}" '.[$key]')" >> $GITHUB_ENV
+
+      - name: Print IP Variable
+        if: env.skip != 'true'
+        run: echo "The IP is ${{ env.ip }}"
+
+      - name: Checkout Code
+        if: env.skip != 'true'
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+          token: ${{ secrets.PAT_TOKEN }}
+
+      # JDK 17 설치
+      - name: Set Up JDK 17
+        if: env.skip != 'true'
+        uses: actions/setup-java@v4
+        with:
+          java-version: "17"
+          distribution: "temurin"
+
+      # Node.js 설치
+      # FontAwesome Pro 관련 설정
+      # node-version을 18으로 설정했는데 16버전이 곧 만료되니까 업데이트 하라는
+      # warning이 하나 나타남. > 20으로 업데이트
+      - name: Set Up Node.js - 20
+        if: env.skip != 'true'
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          registry-url: "https://npm.fontawesome.com/"
+          scope: "@fortawesome"
+          always-auth: true
+
+      # NPM 의존성 캐싱( npm ci 사용을 위한 캐싱 전략 적용 )
+      # FontAwesome BandWidth가 배포할 때마다 늘어나는 이슈
+      - name: Cache NPM dependencies
+        if: env.skip != 'true'
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.npm
+            node_modules
+          key: ${{ runner.os }}-npm-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-npm-
+
+      # NPM 의존성 설치 및 Webpack 빌드 실행
+      # FontAwesome Pro 관련 설정
+      # npm install 대신 npm ci 사용
+      - name: Install NPM Dependencies And Run Build Script
+        if: env.skip != 'true'
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.FONTAWESOME_TOKEN }}
+        run: |
+          npm ci
+          npm run build-dev
+
+      # Gradle 의존성을 캐시해서 워크플로우 속도를 높임.
+      - name: Cache Gradle Dependencies
+        if: env.skip != 'true'
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
+          restore-keys: |
+            ${{ runner.os }}-gradle-
+
+      # gradlew 실행권한 부여
+      # 실행권한이 없다는 오류가 있음.
+      - name: Granted Gradlew Execution
+        if: env.skip != 'true'
+        run: chmod +x gradlew
+
+      # settings.gradle에서 사용하는 CI환경변수 확인
+      - name: Print CI Environment Variable
+        run: echo "CI Variable is $CI"
+
+      # Docker의 확장된 빌드 도구
+      # 얘는 v4 최신버전 없음.
+      - name: Set Up Docker Buildx
+        if: env.skip != 'true'
+        uses: docker/setup-buildx-action@v3
+
+      # Docker Hub에서 organization, token
+      # 얘는 v4 최신버전 없음.
+      - name: Login to Docker Hub
+        if: env.skip != 'true'
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKER_USER }}
+          password: ${{ secrets.DOCKER_TOKEN }}
+
+      # jar파일 생성
+      - name: Build With Gradle ( BootJar )
+        if: env.skip != 'true'
+        run: ./gradlew bootJar
+
+      # jar파일으로 이미지를 생성
+      # 이미지 생성 후 Docker Hub에 push
+      # 이 때 Login to Docker Hub의 인증정보를 사용함.
+      - name: Build And Push Docker Image
+        if: env.skip != 'true'
+        # 이건 왜 v5인지 모르겠음 ㅋㅋ;
+        # Node20에 맞춰서 v3에서 v5로 변경
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          push: true
+          tags: ${{ secrets.DOCKER_USER }}/${{ env.repo }}:latest
+
+      # Configure AWS Credentials
+      # IAM을 활용하는 이유 = github actions runner ip block
+      # 문서에는 https://api.github.com/meta 에 있다고 하는데 이 ip range가 아님.
+      # 그래서 프록시 서버 보안그룹 인바운드에 자동으로 추가, 삭제하기 위함.
+      - name: Configure AWS Credentials
+        if: env.skip != 'true'
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_IAM_KEY }}
+          aws-secret-access-key: ${{ secrets.AWS_IAM_SECRET }}
+          aws-region: ${{ secrets.AWS_REGION }}
+
+      # Runner의 Public IP 호출
+      # Github Meta IP Block을 추가했는데 동작하지 않아서 전체 허용을 하니까 동작함.
+      # 이 말은 Meta IP Block에 맞는 IP가 요정하는게 아니라는 말
+      # 따라서 IP를 호출 후 보안그룹에 추가 > 작업 > 보안그룹에서 삭제 절차로 해보기로 함.
+      - name: Get Runner IP Address
+        if: env.skip != 'true'
+        # 해당값을 Key로 사용하겠다.
+        id: X-Runner-Ip
+        # Runner의 Public IP를 호출해서 RUNNER_IP라는 환경변수로 만들겠다. 라는 로직
+        run: echo "RUNNER_IP=$(curl -s https://api.ipify.org)" >> $GITHUB_ENV
+        # run: echo "::set-output name=ipv4::$(curl -s https://api.ipify.org)"
+        # run: curl -s https://api.ipify.org
+        # uses: haythem/public-ip@v1.3
+
+      # 보안 그룹에 Runner IP 추가
+      - name: Add Runner IP to EC2 Security Group
+        if: env.skip != 'true'
+        run: aws ec2 authorize-security-group-ingress --group-id ${{ secrets.AWS_SECURITY_GROUP }} --protocol tcp --port 22 --cidr ${{ env.RUNNER_IP }}/32
+        # aws ec2 authorize-security-group-ingress --group-id ${{ secrets.AWS_SECURITY_GROUP }} --protocol tcp --port 22 --cidr ${{ steps.X-Runner-Ip.outputs.ipv4 }}/32
+
+      # Deploy to AWS EC2
+      # 여기서 'Login to Docker Hub'와는 별개로
+      # Docker Hub에 추가로 로그인 해야 함.
+      # Login to Docker Hub은 Runner가 빌드한 이미지를 Push하기 위한 로그인이고
+      # 여기서 추가로 진행하는 로그인은 운영서버에서 이미지를 Pull하기 위한 로그인
+      - name: Deploy to AWS EC2
+        if: env.skip != 'true'
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.AWS_EC2_DEV_HOST }}
+          port: ${{ secrets.AWS_EC2_DEV_PORT }}
+          username: ${{ secrets.AWS_EC2_DEV_USER }}
+          key: ${{ secrets.AWS_EC2_DEV_KEY }}
+          proxy_host: ${{ secrets.AWS_EC2_PROXY_HOST }}
+          proxy_port: ${{ secrets.AWS_EC2_PROXY_PORT }}
+          proxy_username: ${{ secrets.AWS_EC2_PROXY_USER }}
+          proxy_key: ${{ secrets.AWS_EC2_PROXY_KEY }}
+          debug: true
+          script: |
+            # 필요한 디렉토리 생성
+            mkdir -p ~/${{ env.repo }}
+            cd ~/${{ env.repo }}
+
+            echo "version: '3.8'
+            services:
+              st2lla:
+                image: ${{ secrets.DOCKER_USER }}/${{ env.repo }}:latest
+                container_name: ${{ env.repo }}
+                restart: unless-stopped
+                ports:
+                  - ${{ env.port }}:${{ env.port }}
+                volumes:
+                  - /home/st2lla/.aws:/root/.aws
+                  - /home/st2lla/upload:/home/st2lla/upload
+                environment:
+                  - ST2LLA_PROPS=${{ secrets.DEV_PROPS }}
+                  - TZ=Asia/Seoul
+                networks:
+                  st2lla-network:
+                    ipv4_address: ${{ env.ip }}
+            networks:
+              st2lla-network:
+                external: true" > docker-compose.yml
+
+            # 이거 주석처리해도 되는데 조건이 있음.
+            # 첫 접근할 땐 로그인로직이 있어야 함.
+            echo ${{ secrets.DOCKER_TOKEN }} | docker login --username ${{ secrets.DOCKER_USER }} --password-stdin
+
+            # Docker Hub에서 이미지 가져와라
+            docker pull ${{ secrets.DOCKER_USER }}/${{ env.repo }}:latest
+
+            # 컨테이너 멈추고 지워라.
+            # docker stop ${{ env.repo }} || true
+            # docker rm ${{ env.repo }} || true
+
+            # 파일업로드, 다운로드를 위한 바인드 마운트
+            # find로 파일을 찾으면 두군데로 나타남 두개가 업로드된게 아님.
+            # -v 호스트서버와 컨테이너 바인드
+            # 아래는 '~' 이 경로가 있음. 내가 자동화 배포할 때 사용한 user의 경로가 여기로 들어감.
+            # (기존) -v ~/.aws:/root/.aws
+            # (변경) -v /root/.aws:/root.aws
+            # 파일업로드 경로도 바인드 시켜줌.
+            # 만약 내가 /home/centos/upload:/upld로 설정했다고 가정하자.
+            # 서버에서 업로드를 /upld 경로로 진행하면
+            # 실제 데이터의 저장은 /home/centos/upload에 저장된다.
+            # docker run -d --restart unless-stopped --name ${{ env.repo }} -p ${{ env.port }}:${{ env.port }} -v /home/st2lla/.aws:/root/.aws -v /home/st2lla/upload:/home/st2lla/upload -e ST2LLA_PROPS=${{ secrets.DEV_PROPS }} ${{ secrets.DOCKER_USER }}/${{ env.repo }}:latest
+
+            # 이 명령어가 실행되는 장소는 상단의 "cd ~/${{ env.repo }}" 명령어 때문에 해당 서비스만 배포됨
+            # 전체 재배포 x
+            docker-compose down
+            docker-compose up -d
+
+            # Clean Unused Docker Images
+            # 서버에서 사용하지 않는 컨테이너, 이미지, 네트워크, 빌드 캐시 등등 삭제
+            docker system prune -f
+
+      # 보안 그룹에서 Runner IP 제거
+      # 만약 배포가 실패하면 이게 안탐.
+      - name: Remove Runner IP from EC2 Security Group
+        # if: always() 추가로 항상 타게 만듬.
+        if: always()
+        run: aws ec2 revoke-security-group-ingress --group-id ${{ secrets.AWS_SECURITY_GROUP }} --protocol tcp --port 22 --cidr ${{ env.RUNNER_IP }}/32 || true
+        # aws ec2 revoke-security-group-ingress --group-id ${{ secrets.AWS_SECURITY_GROUP }} --protocol tcp --port 22 --cidr ${{ steps.X-Runner-Ip.outputs.ipv4 }}/32
+
+      # GitHub Actions가 사용하는 가상 환경 내에서 불필요한 Docker 리소스를 정리
+      - name: Clean Unused Docker Images
+        if: env.skip != 'true'
+        run: docker system prune -f

@@ -1,0 +1,270 @@
+@use "parameter" as param;
+
+:root {
+	--st2lla-secondary-color: #656565;
+}
+
+:root[theme=dark] {
+	--st2lla-body-color: #{param.$light-hex};
+	--st2lla-body-color-rgb: #{param.$light-rgb};
+	--st2lla-body-bg: #{param.$dark-hex};
+	--st2lla-body-bg-rgb: #{param.$dark-rgb};
+	
+	--st2lla-border-color: #{param.$init-border-color-dark};
+	--st2lla-border-color-translucent: #{param.$init-border-color-translucent-dark};
+	--st2lla-secondary-color: #aeb3b8;
+
+	--st2lla-link-hover: #{param.$link-hover-dark-hex};
+	--st2lla-link-hover-rgb: #{param.$link-hover-dark-rgb};
+
+	/** 확인 필요 */
+	--st2lla-subtle-text: #{param.$dark-text-dark-hex};
+	--st2lla-subtle-text-rgb: #{param.$dark-text-dark-rgb};
+	--st2lla-subtle-bg: #{param.$dark-bg-dark-hex};
+	--st2lla-subtle-bg-rgb: #{param.$dark-bg-dark-rgb};
+	--st2lla-subtle-border: #{param.$dark-border-dark-hex};
+	--st2lla-subtle-border-rgb: #{param.$dark-border-dark-rgb};
+
+	--st2lla-primary-text: #{param.$primary-text-dark-hex};
+	--st2lla-primary-text-rgb: #{param.$primary-text-dark-rgb};
+	--st2lla-secondary-text: #{param.$secondary-text-dark-hex};
+	--st2lla-secondary-text-rgb: #{param.$secondary-text-dark-rgb};
+	--st2lla-success-text: #{param.$success-text-dark-hex};
+	--st2lla-success-text-rgb: #{param.$success-text-dark-rgb};
+	--st2lla-info-text: #{param.$info-text-dark-hex};
+	--st2lla-info-text-rgb: #{param.$info-text-dark-rgb};
+	--st2lla-warning-text: #{param.$warning-text-dark-hex};
+	--st2lla-warning-text-rgb: #{param.$warning-text-dark-rgb};
+	--st2lla-danger-text: #{param.$danger-text-dark-hex};
+	--st2lla-danger-text-rgb: #{param.$danger-text-dark-rgb};
+	--st2lla-valid-text: #{param.$valid-text-dark-hex};
+	--st2lla-valid-text-rgb: #{param.$valid-text-dark-rgb};
+	--st2lla-invalid-text: #{param.$invalid-text-dark-hex};
+	--st2lla-invalid-text-rgb: #{param.$invalid-text-dark-rgb};
+	--st2lla-secondary-text-sub: #{param.$secondary-text-sub-dark-hex};
+	--st2lla-secondary-text-sub-rgb: #{param.$secondary-text-sub-dark-rgb};
+	--st2lla-tertiary-text: #{param.$tertiary-text-dark-hex};
+	--st2lla-tertiary-text-rgb: #{param.$tertiary-text-dark-rgb};
+	--st2lla-link-text: #{param.$link-text-dark-hex};
+	--st2lla-link-text-rgb: #{param.$link-text-dark-rgb};
+	--st2lla-code-text: #{param.$code-text-dark-hex};
+	--st2lla-code-text-rgb: #{param.$code-text-dark-rgb};
+	--st2lla-highlight-text: #{param.$highlight-text-dark-hex};
+	--st2lla-highlight-text-rgb: #{param.$highlight-text-dark-rgb};
+
+	--st2lla-primary-bg: #{param.$primary-bg-dark-hex};
+	--st2lla-primary-bg-rgb: #{param.$primary-bg-dark-rgb};
+	--st2lla-secondary-bg: #{param.$secondary-bg-dark-hex};
+	--st2lla-secondary-bg-rgb: #{param.$secondary-bg-dark-rgb};
+	--st2lla-success-bg: #{param.$success-bg-dark-hex};
+	--st2lla-success-bg-rgb: #{param.$success-bg-dark-rgb};
+	--st2lla-info-bg: #{param.$info-bg-dark-hex};
+	--st2lla-info-bg-rgb: #{param.$info-bg-dark-rgb};
+	--st2lla-warning-bg: #{param.$warning-bg-dark-hex};
+	--st2lla-warning-bg-rgb: #{param.$warning-bg-dark-rgb};
+	--st2lla-danger-bg: #{param.$danger-bg-dark-hex};
+	--st2lla-danger-bg-rgb: #{param.$danger-bg-dark-rgb};
+	--st2lla-secondary-bg-sub: #{param.$secondary-bg-sub-dark-hex};
+	--st2lla-secondary-bg-sub-rgb: #{param.$secondary-bg-sub-dark-rgb};
+	--st2lla-tertiary-bg: #{param.$tertiary-bg-dark-hex};
+	--st2lla-tertiary-bg-rgb: #{param.$tertiary-bg-dark-rgb};
+	--st2lla-highlight-bg: #{param.$highlight-bg-dark-hex};
+	--st2lla-highlight-bg-rgb: #{param.$highlight-bg-dark-rgb};
+
+	--st2lla-primary-border: #{param.$primary-border-dark-hex};
+	--st2lla-secondary-border: #{param.$secondary-border-dark-hex};
+	--st2lla-success-border: #{param.$success-border-dark-hex};
+	--st2lla-info-border: #{param.$info-border-dark-hex};
+	--st2lla-warning-border: #{param.$warning-border-dark-hex};
+	--st2lla-danger-border: #{param.$danger-border-dark-hex};
+	--st2lla-valid-border: #{param.$valid-border-dark-hex};
+	--st2lla-invalid-border: #{param.$invalid-border-dark-hex};
+}
+
+:root, [theme=dark] {
+	font-size: 0.8125rem;
+
+	--st2lla-body-color: #{param.$dark-hex};
+	--st2lla-body-color-rgb: #{param.$dark-rgb};
+	--st2lla-body-font-size: #{param.$init-font-size};
+	--st2lla-body-font-weight: #{param.$init-font-weight};
+	--st2lla-body-line-height: #{param.$init-line-height};
+	--st2lla-body-bg: #{param.$light-hex};
+	--st2lla-body-bg-rgb: #{param.$light-rgb};
+
+	--st2lla-border-width: #{param.$init-border-width};
+	--st2lla-border-style: #{param.$init-border-style};
+	--st2lla-border-color: #{param.$init-border-color-light};
+	--st2lla-border-color-translucent: #{param.$init-border-color-translucent-light};
+
+	--st2lla-border-radius: #{param.$init-border-radius};
+	--st2lla-border-radius-sm: #{param.$init-border-radius-sm};
+	--st2lla-border-radius-lg: #{param.$init-border-radius-lg};
+	--st2lla-border-radius-xl: #{param.$init-border-radius-xl};
+	--st2lla-border-radius-xxl: #{param.$init-border-radius-xxl};
+	--st2lla-border-radius-2xl: #{param.$init-border-radius-2xl};
+
+	--st2lla-box-shadow: #{param.$init-box-shadow};
+	--st2lla-box-shadow-sm: #{param.$init-box-shadow-sm};
+	--st2lla-box-shadow-lg: #{param.$init-box-shadow-lg};
+	--st2lla-box-shadow-inset: #{param.$init-box-shadow-inset};
+
+	--st2lla-link-decoration: #{param.$link-decoration};
+	--st2lla-link-hover: #{param.$link-hover-light-hex};
+	--st2lla-link-hover-rgb: #{param.$link-hover-light-rgb};
+
+	--st2lla-gradient: #{param.$init-gradient};
+	--st2lla-rainbow-gradient: #{param.$init-rainbow-gradient};
+
+	/** 확인 필요 */
+	--st2lla-heading-color: inherit
+	--st2lla-focus-ring-width: 0.25rem;
+	--st2lla-focus-ring-opacity: .25;
+	--st2lla-focus-ring-color: #6c5dd340;
+
+	--st2lla-subtle-text: #{param.$dark-text-light-hex};
+	--st2lla-subtle-text-rgb: #{param.$dark-text-light-rgb};
+	--st2lla-subtle-bg: #{param.$dark-bg-light-hex};
+	--st2lla-subtle-bg-rgb: #{param.$dark-bg-light-rgb};
+	--st2lla-subtle-border: #{param.$dark-border-light-hex};
+	--st2lla-subtle-border-rgb: #{param.$dark-border-light-rgb};
+
+	/** color */
+	--st2lla-ci: #{param.$ci-hex};
+	--st2lla-ci-rgb: #{param.$ci-rgb};
+	--st2lla-light: #{param.$light-hex};
+	--st2lla-light-rgb: #{param.$light-rgb};
+	--st2lla-white: #{param.$white-hex};
+	--st2lla-white-rgb: #{param.$white-rgb};
+	--st2lla-dark: #{param.$dark-hex};
+	--st2lla-dark-rgb: #{param.$dark-rgb};
+	--st2lla-black: #{param.$black-hex};
+	--st2lla-black-rgb: #{param.$black-rgb};
+	--st2lla-blue: #{param.$blue-hex};
+	--st2lla-blue-rgb: #{param.$blue-rgb};
+	--st2lla-sky-blue: #{param.$sky-blue-hex};
+	--st2lla-sky-blue-rgb: #{param.$sky-blue-rgb};
+	--st2lla-indigo: #{param.$indigo-hex};
+	--st2lla-indigo-rgb: #{param.$indigo-rgb};
+	--st2lla-purple: #{param.$purple-hex};
+	--st2lla-purple-rgb: #{param.$purple-rgb};
+	--st2lla-pink: #{param.$pink-hex};
+	--st2lla-pink-rgb: #{param.$pink-rgb};
+	--st2lla-red: #{param.$red-hex};
+	--st2lla-red-rgb: #{param.$red-rgb};
+	--st2lla-orange: #{param.$orange-hex};
+	--st2lla-orange-rgb: #{param.$orange-rgb};
+	--st2lla-yellow: #{param.$yellow-hex};
+	--st2lla-yellow-rgb: #{param.$yellow-rgb};
+	--st2lla-green: #{param.$green-hex};
+	--st2lla-green-rgb: #{param.$green-rgb};
+	--st2lla-teal: #{param.$teal-hex};
+	--st2lla-teal-rgb: #{param.$teal-rgb};
+	--st2lla-cyan: #{param.$cyan-hex};
+	--st2lla-cyan-rgb: #{param.$cyan-rgb};
+	--st2lla-brand: #{param.$brand-hex};
+	--st2lla-brand-rgb: #{param.$brand-rgb};
+	--st2lla-brand-two: #{param.$brand-two-hex};
+	--st2lla-brand-two-rgb: #{param.$brand-two-rgb};
+
+	--st2lla-storybook-hex: #{param.$storybook-hex};
+	--st2lla-storybook-rgb: #{param.$storybook-rgb};
+	--st2lla-gray: #{param.$gray-hex};
+	--st2lla-gray-rgb: #{param.$gray-rgb};
+	--st2lla-gray-100: #{param.$gray-100-hex};
+	--st2lla-gray-100-rgb: #{param.$gray-100-rgb};
+	--st2lla-gray-200: #{param.$gray-200-hex};
+	--st2lla-gray-200-rgb: #{param.$gray-200-rgb};
+	--st2lla-gray-300: #{param.$gray-300-hex};
+	--st2lla-gray-300-rgb: #{param.$gray-300-rgb};
+	--st2lla-gray-400: #{param.$gray-400-hex};
+	--st2lla-gray-400-rgb: #{param.$gray-400-rgb};
+	--st2lla-gray-500: #{param.$gray-500-hex};
+	--st2lla-gray-500-rgb: #{param.$gray-500-rgb};
+	--st2lla-gray-600: #{param.$gray-600-hex};
+	--st2lla-gray-600-rgb: #{param.$gray-600-rgb};
+	--st2lla-gray-700: #{param.$gray-700-hex};
+	--st2lla-gray-700-rgb: #{param.$gray-700-rgb};
+	--st2lla-gray-800: #{param.$gray-800-hex};
+	--st2lla-gray-800-rgb: #{param.$gray-800-rgb};
+	--st2lla-gray-900: #{param.$gray-900-hex};
+	--st2lla-gray-900-rgb: #{param.$gray-900-rgb};
+	--st2lla-gray-dark: #{param.$gray-dark-hex};
+	--st2lla-gray-dark-rgb: #{param.$gray-dark-rgb};
+
+	--st2lla-primary: #{param.$primary-hex};
+	--st2lla-primary-rgb: #{param.$primary-rgb};
+	--st2lla-secondary: #{param.$secondary-hex};
+	--st2lla-secondary-rgb: #{param.$secondary-rgb};
+	--st2lla-success: #{param.$success-hex};
+	--st2lla-success-rgb: #{param.$success-rgb};
+	--st2lla-info: #{param.$info-hex};
+	--st2lla-info-rgb: #{param.$info-rgb};
+	--st2lla-warning: #{param.$warning-hex};
+	--st2lla-warning-rgb: #{param.$warning-rgb};
+	--st2lla-danger: #{param.$danger-hex};
+	--st2lla-danger-rgb: #{param.$danger-rgb};
+
+	--st2lla-primary-text: #{param.$primary-text-light-hex};
+	--st2lla-primary-text-rgb: #{param.$primary-text-light-rgb};
+	--st2lla-secondary-text: #{param.$secondary-text-light-hex};
+	--st2lla-secondary-text-rgb: #{param.$secondary-text-light-rgb};
+	--st2lla-success-text: #{param.$success-text-light-hex};
+	--st2lla-success-text-rgb: #{param.$success-text-light-rgb};
+	--st2lla-info-text: #{param.$info-text-light-hex};
+	--st2lla-info-text-rgb: #{param.$info-text-light-rgb};
+	--st2lla-warning-text: #{param.$warning-text-light-hex};
+	--st2lla-warning-text-rgb: #{param.$warning-text-light-rgb};
+	--st2lla-danger-text: #{param.$danger-text-light-hex};
+	--st2lla-danger-text-rgb: #{param.$danger-text-light-rgb};
+	--st2lla-valid-text: #{param.$valid-text-light-hex};
+	--st2lla-valid-text-rgb: #{param.$valid-text-light-rgb};
+	--st2lla-invalid-text: #{param.$invalid-text-light-hex};
+	--st2lla-invalid-text-rgb: #{param.$invalid-text-light-rgb};
+	--st2lla-secondary-text-sub: #{param.$secondary-text-sub-light-hex};
+	--st2lla-secondary-text-sub-rgb: #{param.$secondary-text-sub-light-rgb};
+	--st2lla-tertiary-text: #{param.$tertiary-text-light-hex};
+	--st2lla-tertiary-text-rgb: #{param.$tertiary-text-light-rgb};
+	--st2lla-link-text: #{param.$link-text-light-hex};
+	--st2lla-link-text-rgb: #{param.$link-text-light-rgb};
+	--st2lla-code-text: #{param.$code-text-light-hex};
+	--st2lla-code-text-rgb: #{param.$code-text-light-rgb};
+	--st2lla-highlight-text: #{param.$highlight-text-light-hex};
+	--st2lla-highlight-text-rgb: #{param.$highlight-text-light-rgb};
+
+	--st2lla-primary-bg: #{param.$primary-bg-light-hex};
+	--st2lla-primary-bg-rgb: #{param.$primary-bg-light-rgb};
+	--st2lla-secondary-bg: #{param.$secondary-bg-light-hex};
+	--st2lla-secondary-bg-rgb: #{param.$secondary-bg-light-rgb};
+	--st2lla-success-bg: #{param.$success-bg-light-hex};
+	--st2lla-success-bg-rgb: #{param.$success-bg-light-rgb};
+	--st2lla-info-bg: #{param.$info-bg-light-hex};
+	--st2lla-info-bg-rgb: #{param.$info-bg-light-rgb};
+	--st2lla-warning-bg: #{param.$warning-bg-light-hex};
+	--st2lla-warning-bg-rgb: #{param.$warning-bg-light-rgb};
+	--st2lla-danger-bg: #{param.$danger-bg-light-hex};
+	--st2lla-danger-bg-rgb: #{param.$danger-bg-light-rgb};
+	--st2lla-secondary-bg-sub: #{param.$secondary-bg-sub-light-hex};
+	--st2lla-secondary-bg-sub-rgb: #{param.$secondary-bg-sub-light-rgb};
+	--st2lla-tertiary-bg: #{param.$tertiary-bg-light-hex};
+	--st2lla-tertiary-bg-rgb: #{param.$tertiary-bg-light-rgb};
+	--st2lla-highlight-bg: #{param.$highlight-bg-light-hex};
+	--st2lla-highlight-bg-rgb: #{param.$highlight-bg-light-rgb};
+
+	--st2lla-primary-border: #{param.$primary-border-light-hex};
+	--st2lla-primary-border-rgb: #{param.$primary-border-light-rgb};
+	--st2lla-secondary-border: #{param.$secondary-border-light-hex};
+	--st2lla-secondary-border-rgb: #{param.$secondary-border-light-rgb};
+	--st2lla-success-border: #{param.$success-border-light-hex};
+	--st2lla-success-border-rgb: #{param.$success-border-light-rgb};
+	--st2lla-info-border: #{param.$info-border-light-hex};
+	--st2lla-info-border-rgb: #{param.$info-border-light-rgb};
+	--st2lla-warning-border: #{param.$warning-border-light-hex};
+	--st2lla-warning-border-rgb: #{param.$warning-border-light-rgb};
+	--st2lla-danger-border: #{param.$danger-border-light-hex};
+	--st2lla-danger-border-rgb: #{param.$danger-border-light-rgb};
+	--st2lla-valid-border: #{param.$valid-border-light-hex};
+	--st2lla-valid-border-rgb: #{param.$valid-border-light-rgb};
+	--st2lla-invalid-border: #{param.$invalid-border-light-hex};
+	--st2lla-invalid-border-rgb: #{param.$invalid-border-light-rgb};
+}

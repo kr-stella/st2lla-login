@@ -44,7 +44,10 @@ if(fs.existsSync(src) && fs.existsSync(modules)) {
 				app: path.join(__dirname, `src`, `main`, `resources`, `static`, `ts`, `App.tsx`),
 			},
 			resolve: {
-				extensions: [`.tsx`, `.ts`, `.js`]
+				extensions: [`.tsx`, `.ts`, `.js`],
+				alias: {
+					"font": path.resolve(__dirname, `src`, `main`, `resources`, `static`, `font`)
+				}
 			},
 			output: {
 				path: path.resolve(__dirname, `src`, `main`, `resources`, `static`, `built`),
@@ -57,9 +60,6 @@ if(fs.existsSync(src) && fs.existsSync(modules)) {
 			plugins: [
 				new MiniCssExtractPlugin({
 					filename: `[name].[chunkhash].css`
-				}),
-				new webpack.ProvidePlugin({
-					"window.Quill": `quill`
 				}),
 				new CleanWebpackPlugin(),
 				new HtmlWebpackPlugin({
@@ -188,8 +188,7 @@ if(fs.existsSync(src) && fs.existsSync(modules)) {
 					analyzerPort: 58081
 				}),
 				new webpack.DefinePlugin({ // 컴파일할 코드에서 특정 문자열을 설정한 값으로 치환.
-					"process.env.NODE_ENV": JSON.stringify(`development`),
-					"MAIN_HOST": JSON.stringify(`http://localhost:8081/`)
+					"process.env.NODE_ENV": JSON.stringify(`development`)
 				})
 			]
 		};
@@ -203,8 +202,7 @@ if(fs.existsSync(src) && fs.existsSync(modules)) {
 			plugins: [
 				...data.plugins,
 				new webpack.DefinePlugin({ // 컴파일할 코드에서 특정 문자열을 설정한 값으로 치환.
-					"process.env.NODE_ENV": JSON.stringify(`production`),
-					"MAIN_HOST": JSON.stringify(`https://login.intra.st2lla.co.kr/`)
+					"process.env.NODE_ENV": JSON.stringify(`production`)
 				})
 			]
 		}
@@ -218,8 +216,7 @@ if(fs.existsSync(src) && fs.existsSync(modules)) {
 			plugins: [
 				...data.plugins,
 				new webpack.DefinePlugin({ // 컴파일할 코드에서 특정 문자열을 설정한 값으로 치환.
-					"process.env.NODE_ENV": JSON.stringify(`production`),
-					"MAIN_HOST": JSON.stringify(`https://login.dev.st2lla.co.kr/`)
+					"process.env.NODE_ENV": JSON.stringify(`deployment`)
 				})
 			]
 		};

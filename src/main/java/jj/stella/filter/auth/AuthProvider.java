@@ -44,11 +44,11 @@ public class AuthProvider implements AuthenticationProvider {
 //		return new UsernamePasswordAuthenticationToken(principal, password, authorityRoles);
 		return new UsernamePasswordAuthenticationToken(username, password, authorityRoles);
 		
-	};
+	}
 	
 	@Override
 	public boolean supports(Class<?> authentication) {
 		return authentication.equals(UsernamePasswordAuthenticationToken.class);
-	};
+	}
 	
 }

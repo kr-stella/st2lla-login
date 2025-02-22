@@ -47,7 +47,7 @@ public class RedirectUtil {
 	 * @return boolean  referer가 유효한 시작 부분을 가지면 true, 그렇지 않거나 특정 포트를 사용하면 false
 	 * */
 	public static boolean validateReferer(String path) {
-		if(path == null || path.startsWith("http://localhost:8081"))
+		if(path == null || path.startsWith("http://localhost:8081") || path.startsWith("https://login.dev.st2lla.co.kr"))
 			return false;
 		return ALLOWED_REFERERS.stream().anyMatch(path::startsWith);
 	}

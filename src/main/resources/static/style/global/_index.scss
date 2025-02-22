@@ -1,10 +1,20 @@
-@forward "animation";
-@forward "breakpoint";
-@forward "font";
-@forward "init";
-@forward "parameter";
-@forward "theme";
+@forward "button";
+@forward "canvas";
+@forward "img";
+@forward "input";
+@forward "link";
+@forward "list";
+@forward "pre";
+@forward "small";
+@forward "svg";
+@forward "table";
+@forward "textarea";
 
+.relative { position: relative !important; }
+.pointer { cursor: pointer !important; }
 
-
-// @forward "button";
+.mb-1 { margin-bottom: .25rem !important; }
+.mb-2 { margin-bottom: .5rem !important; }
+.mb-3 { margin-bottom: 1rem !important; }
+.mb-4 { margin-bottom: 1.5rem !important; }
+.mb-5 { margin-bottom: 3rem !important; }
